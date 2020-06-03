@@ -12,6 +12,11 @@ class EventsShow extends Component {
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    if (id) this.props.getEvent(id);
+  }
+
   renderField(field) {
     const {
       input,
@@ -71,6 +76,11 @@ const validate = (values) => {
   return errors;
 };
 
-const mapDispatchToProps = { deleteEvent };
+const mapStateToProps = (state, ownProps) => {
+  const event = state.events[ownProps.match.params.id];
+  return { initialValues: event, event };
+};
 
-export default connect(null, mapDispatchToProps)(reduxForm({ validate, form: "eventsShowForm" })(EventsShow));
+const mapDispatchToProps = { deleteEvent, getEvent };
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ validate, form: "eventsShowForm", enableReinitialize: true })(EventsShow));
