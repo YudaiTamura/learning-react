@@ -17,18 +17,16 @@ const enhancer = process.env.NODE_ENV === "development" ? composeWithDevTools(ap
 const store = createStore(reducer, enhancer);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={EventsIndex}></Route>
-          <Route exact path="/events" component={EventsIndex}></Route>
-          <Route path="/events/new" component={EventsNew}></Route>
-          <Route path="/events/:id" component={EventsShow}></Route>
-        </Switch>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={EventsIndex}></Route>
+        <Route exact path="/events" component={EventsIndex}></Route>
+        <Route path="/events/new" component={EventsNew}></Route>
+        <Route path="/events/:id" component={EventsShow}></Route>
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 
